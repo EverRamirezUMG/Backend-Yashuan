@@ -8,8 +8,12 @@ const {
 
 const costoproduccionRouter = express.Router();
 
-costoproduccionRouter.get("/beneficio", gastoBeneficio);
-costoproduccionRouter.get("/:id", costoproduccion);
-costoproduccionRouter.post("/ingresar", ingresarGastoBeneficio);
+costoproduccionRouter.get("/beneficio", authenticateToken, gastoBeneficio);
+costoproduccionRouter.get("/:id", authenticateToken, costoproduccion);
+costoproduccionRouter.post(
+  "/ingresar",
+  authenticateToken,
+  ingresarGastoBeneficio
+);
 
 module.exports = costoproduccionRouter;

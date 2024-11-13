@@ -8,8 +8,8 @@ const {
 
 const envioRouter = express.Router();
 
-envioRouter.get("/", envios);
-envioRouter.get("/:id", envio);
-envioRouter.post("/ingresar", ingresarEnvio);
+envioRouter.get("/", authenticateToken, envios);
+envioRouter.get("/:id", authenticateToken, envio);
+envioRouter.post("/ingresar", authenticateToken, ingresarEnvio);
 
 module.exports = envioRouter;

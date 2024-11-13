@@ -19,19 +19,27 @@ const {
 
 const compraRouter = express.Router();
 
-compraRouter.get("/", acopio);
-compraRouter.get("/total", totalCompra);
-compraRouter.get("/resumen", resumenAcopio);
-compraRouter.get("/estado", verificarCompra);
-compraRouter.get("/compras", getAllcompras);
-compraRouter.get("/comprobante", comprobante);
-compraRouter.get("/vehiculo", vehiculos);
-compraRouter.get("/tipo", tipo_productor);
-compraRouter.get("/comprobante/:idcomprobante", getCompra);
-compraRouter.put("/actualizar/:idcomprobante", actualizarCompra);
-compraRouter.delete("/eliminar/:idcomprobante", eliminarCompra);
-compraRouter.post("/comprar", comprar);
-compraRouter.post("/finalizar", finalizarCompra);
-compraRouter.post("/iniciar/:codigo", inicarCompra);
+compraRouter.get("/", authenticateToken, acopio);
+compraRouter.get("/total", authenticateToken, totalCompra);
+compraRouter.get("/resumen", authenticateToken, resumenAcopio);
+compraRouter.get("/estado", authenticateToken, verificarCompra);
+compraRouter.get("/compras", authenticateToken, getAllcompras);
+compraRouter.get("/comprobante", authenticateToken, comprobante);
+compraRouter.get("/vehiculo", authenticateToken, vehiculos);
+compraRouter.get("/tipo", authenticateToken, tipo_productor);
+compraRouter.get("/comprobante/:idcomprobante", authenticateToken, getCompra);
+compraRouter.put(
+  "/actualizar/:idcomprobante",
+  authenticateToken,
+  actualizarCompra
+);
+compraRouter.delete(
+  "/eliminar/:idcomprobante",
+  authenticateToken,
+  eliminarCompra
+);
+compraRouter.post("/comprar", authenticateToken, comprar);
+compraRouter.post("/finalizar", authenticateToken, finalizarCompra);
+compraRouter.post("/iniciar/:codigo", authenticateToken, inicarCompra);
 
 module.exports = compraRouter;

@@ -14,14 +14,14 @@ const {
 
 const muestrasRouter = express.Router();
 
-muestrasRouter.get("/", muestras);
-muestrasRouter.get("/partidas", listaPartidas);
-muestrasRouter.get("/fecha", muestrasRango);
-muestrasRouter.get("/rtotal", RangoTotales);
-muestrasRouter.get("/clientes", listaClientes);
-muestrasRouter.get("/totales", totales);
-muestrasRouter.get("/precio", precio);
-muestrasRouter.get("/:id", muestra);
-muestrasRouter.post("/ingresar", crearMuestra);
+muestrasRouter.get("/", authenticateToken, muestras);
+muestrasRouter.get("/partidas", authenticateToken, listaPartidas);
+muestrasRouter.get("/fecha", authenticateToken, muestrasRango);
+muestrasRouter.get("/rtotal", authenticateToken, RangoTotales);
+muestrasRouter.get("/clientes", authenticateToken, listaClientes);
+muestrasRouter.get("/totales", authenticateToken, totales);
+muestrasRouter.get("/precio", authenticateToken, precio);
+muestrasRouter.get("/:id", authenticateToken, muestra);
+muestrasRouter.post("/ingresar", authenticateToken, crearMuestra);
 
 module.exports = muestrasRouter;

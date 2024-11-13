@@ -11,11 +11,15 @@ const {
 
 const rendimientoRouter = express.Router();
 
-rendimientoRouter.get("/partidas", partidas);
-rendimientoRouter.get("/rangopartidas", partidasRango);
-rendimientoRouter.get("/allpartidas", allpartida);
-rendimientoRouter.get("/partida/:id", rendimientoPartida);
-rendimientoRouter.get("/catacion/:id", catacion);
-rendimientoRouter.post("/ingresarcatacion/:partida", ingresarCatacion);
+rendimientoRouter.get("/partidas", authenticateToken, partidas);
+rendimientoRouter.get("/rangopartidas", authenticateToken, partidasRango);
+rendimientoRouter.get("/allpartidas", authenticateToken, allpartida);
+rendimientoRouter.get("/partida/:id", authenticateToken, rendimientoPartida);
+rendimientoRouter.get("/catacion/:id", authenticateToken, catacion);
+rendimientoRouter.post(
+  "/ingresarcatacion/:partida",
+  authenticateToken,
+  ingresarCatacion
+);
 
 module.exports = rendimientoRouter;

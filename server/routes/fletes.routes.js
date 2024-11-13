@@ -4,6 +4,6 @@ const { fletes } = require("../controllers/fletes.controller");
 
 const fletesRouter = express.Router();
 
-fletesRouter.get("/", fletes);
+fletesRouter.get("/", authenticateToken, fletes);
 
 module.exports = fletesRouter;

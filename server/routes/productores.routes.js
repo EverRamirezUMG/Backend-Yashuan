@@ -4,7 +4,7 @@ const { productores, pagar } = require("../controllers/productores.controller");
 
 const productoresRouter = express.Router();
 
-productoresRouter.get("/", productores);
-productoresRouter.put("/pagar/:idcomprobante", pagar);
+productoresRouter.get("/", authenticateToken, productores);
+productoresRouter.put("/pagar/:idcomprobante", authenticateToken, pagar);
 
 module.exports = productoresRouter;

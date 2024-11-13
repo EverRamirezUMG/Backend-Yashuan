@@ -13,13 +13,13 @@ const {
 
 const inventarioRouter = express.Router();
 
-inventarioRouter.get("/disponibilidad", disponibilidad);
-inventarioRouter.get("/stock", cantidadDisponible);
-inventarioRouter.get("/partidas", partidas);
-inventarioRouter.get("/proceso", proceso);
-inventarioRouter.get("/pergamino", pergamino);
-inventarioRouter.get("/pergaminos", pergaminoRango);
-inventarioRouter.get("/partida/:idpartida", partida);
-inventarioRouter.post("/ingresar", ingresarPergamino);
+inventarioRouter.get("/disponibilidad", authenticateToken, disponibilidad);
+inventarioRouter.get("/stock", authenticateToken, cantidadDisponible);
+inventarioRouter.get("/partidas", authenticateToken, partidas);
+inventarioRouter.get("/proceso", authenticateToken, proceso);
+inventarioRouter.get("/pergamino", authenticateToken, pergamino);
+inventarioRouter.get("/pergaminos", authenticateToken, pergaminoRango);
+inventarioRouter.get("/partida/:idpartida", authenticateToken, partida);
+inventarioRouter.post("/ingresar", authenticateToken, ingresarPergamino);
 
 module.exports = inventarioRouter;

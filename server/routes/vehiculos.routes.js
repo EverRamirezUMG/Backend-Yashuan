@@ -9,9 +9,9 @@ const {
 
 const vehiculosRouter = express.Router();
 
-vehiculosRouter.get("/", vehiculos);
-vehiculosRouter.post("/ingresar", ingresarVehiculo);
-vehiculosRouter.put("/actualizar/:id", actualizarVehiculo);
-vehiculosRouter.put("/eliminar/:id", eliminarVehiculo);
+vehiculosRouter.get("/", authenticateToken, vehiculos);
+vehiculosRouter.post("/ingresar", authenticateToken, ingresarVehiculo);
+vehiculosRouter.put("/actualizar/:id", authenticateToken, actualizarVehiculo);
+vehiculosRouter.put("/eliminar/:id", authenticateToken, eliminarVehiculo);
 
 module.exports = vehiculosRouter;

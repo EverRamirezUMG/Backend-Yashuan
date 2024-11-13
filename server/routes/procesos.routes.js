@@ -11,11 +11,15 @@ const {
 
 const procesosRouter = express.Router();
 
-procesosRouter.get("/", procesos);
-procesosRouter.get("/precio", preciopergamino);
-procesosRouter.get("/proceso/:id", proceso);
-procesosRouter.post("/ingresarprecio", ingresarPrecioPergamino);
-procesosRouter.post("/ingresarproceso", ingresarProceso);
-procesosRouter.put("/actualizar/:id", actualizarProceso);
+procesosRouter.get("/", authenticateToken, procesos);
+procesosRouter.get("/precio", authenticateToken, preciopergamino);
+procesosRouter.get("/proceso/:id", authenticateToken, proceso);
+procesosRouter.post(
+  "/ingresarprecio",
+  authenticateToken,
+  ingresarPrecioPergamino
+);
+procesosRouter.post("/ingresarproceso", authenticateToken, ingresarProceso);
+procesosRouter.put("/actualizar/:id", authenticateToken, actualizarProceso);
 
 module.exports = procesosRouter;

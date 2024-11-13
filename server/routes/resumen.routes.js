@@ -12,12 +12,12 @@ const {
 
 const resumenRouter = express.Router();
 
-resumenRouter.get("/lista", listadoCompras);
-resumenRouter.get("/compras", compras);
-resumenRouter.get("/compra", getAllcompras);
-resumenRouter.get("/resumen", resumenAcopio);
-resumenRouter.get("/resumenid", resumenAcopioid);
-resumenRouter.get("/total", totalCompra);
-resumenRouter.get("/totalid", totalCompraId);
+resumenRouter.get("/lista", authenticateToken, listadoCompras);
+resumenRouter.get("/compras", authenticateToken, compras);
+resumenRouter.get("/compra", authenticateToken, getAllcompras);
+resumenRouter.get("/resumen", authenticateToken, resumenAcopio);
+resumenRouter.get("/resumenid", authenticateToken, resumenAcopioid);
+resumenRouter.get("/total", authenticateToken, totalCompra);
+resumenRouter.get("/totalid", authenticateToken, totalCompraId);
 
 module.exports = resumenRouter;

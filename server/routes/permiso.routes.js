@@ -9,8 +9,8 @@ const {
 const permisosRouter = express.Router();
 
 // permisosRouter.get('/permiso/:codigo', authenticateToken, getPermiso);
-permisosRouter.get("/roles", getRoles);
-permisosRouter.get("/:codigo", getPermiso);
-permisosRouter.put("/:codigo", updatePermiso);
+permisosRouter.get("/roles", authenticateToken, getRoles);
+permisosRouter.get("/:codigo", authenticateToken, getPermiso);
+permisosRouter.put("/:codigo", authenticateToken, updatePermiso);
 
 module.exports = permisosRouter;

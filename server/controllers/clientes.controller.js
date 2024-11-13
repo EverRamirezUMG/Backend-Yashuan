@@ -11,7 +11,7 @@ telefono,
 email,
 dpi, 
 fecha_creacion as fecha
-from cliente
+from cliente where activo = true
 order by pk_cliente desc
 `);
     res.json(clientes.rows);
@@ -72,7 +72,7 @@ telefono,
 email,
 dpi, 
 fecha_creacion as fecha
-from cliente where fecha_creacion between $1 and $2
+from cliente where activo = true and fecha_creacion between $1 and $2
 `,
       [fecha1, fecha2]
     );
@@ -99,9 +99,50 @@ const ingresarClientes = async (req, res, next) => {
   }
 };
 
+//------------- Actualizar Cliente ------------------
+const actualizarCliente = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const { nombre, telefono, email } = req.body;
+    const result = await pool.query(
+      `
+       update cliente set nombre = $1, telefono = $2, email = $3 where pk_cliente = $4;
+      `,
+      [nombre, telefono, email, id]
+    );
+    if (result.rowCount > 0) {
+      res.status(200).json({ message: "Cliente actualizado correctamente" });
+    } else {
+      res.status(404).json({ error: "Cliente no encontrado" });
+    }
+  } catch (error) {
+    next(error);
+  }
+};
+
+// ----------------------- DESACRTIVAR CLIENTE -----------------------
+
+const desactivarCliente = async (req, res, next) => {
+  try {
+    const { id } = req.params;
+    const clientes = await pool.query(
+      `
+         update cliente set activo = false where pk_cliente = $1;
+  
+  `,
+      [id]
+    );
+    res.json(clientes.rows);
+  } catch (error) {
+    next(error);
+  }
+};
+
 module.exports = {
   clientes,
   ingresarClientes,
   rangoClientes,
   cliente,
+  actualizarCliente,
+  desactivarCliente,
 };

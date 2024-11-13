@@ -12,8 +12,8 @@ const upload = require("../middleware/multerConfig");
 
 const usuarioRouter = express.Router();
 
-usuarioRouter.get("/usuarios/:activo", getAllusuarios);
-usuarioRouter.get("/usuario/:codigo", getUsuarios);
+usuarioRouter.get("/usuarios/:activo", authenticateToken, getAllusuarios);
+usuarioRouter.get("/usuario/:codigo", authenticateToken, getUsuarios);
 usuarioRouter.post(
   "/usuarios",
   upload.single("imagen"),

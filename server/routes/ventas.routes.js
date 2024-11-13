@@ -12,12 +12,12 @@ const {
 
 const ventasRouter = express.Router();
 
-ventasRouter.get("/", ventas);
-ventasRouter.get("/fecha", rangoVentas);
-ventasRouter.get("/totales", totales);
-ventasRouter.get("/rtotal", rangoTotales);
-ventasRouter.get("/:id", venta);
-ventasRouter.post("/ingresar", ingresarVenta);
-ventasRouter.put("/pago/:id", pagoVenta);
+ventasRouter.get("/", authenticateToken, ventas);
+ventasRouter.get("/fecha", authenticateToken, rangoVentas);
+ventasRouter.get("/totales", authenticateToken, totales);
+ventasRouter.get("/rtotal", authenticateToken, rangoTotales);
+ventasRouter.get("/:id", authenticateToken, venta);
+ventasRouter.post("/ingresar", authenticateToken, ingresarVenta);
+ventasRouter.put("/pago/:id", authenticateToken, pagoVenta);
 
 module.exports = ventasRouter;

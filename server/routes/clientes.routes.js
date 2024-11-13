@@ -5,13 +5,17 @@ const {
   ingresarClientes,
   rangoClientes,
   cliente,
+  actualizarCliente,
+  desactivarCliente,
 } = require("../controllers/clientes.controller");
 
 const clientesRouter = express.Router();
 
-clientesRouter.get("/", clientes);
-clientesRouter.get("/cliente/:id", cliente);
-clientesRouter.get("/fecha", rangoClientes);
-clientesRouter.post("/ingresar", ingresarClientes);
+clientesRouter.get("/", authenticateToken, clientes);
+clientesRouter.get("/cliente/:id", authenticateToken, cliente);
+clientesRouter.get("/fecha", authenticateToken, rangoClientes);
+clientesRouter.post("/ingresar", authenticateToken, ingresarClientes);
+clientesRouter.put("/actualizar/:id", authenticateToken, actualizarCliente);
+clientesRouter.put("/desactivar/:id", authenticateToken, desactivarCliente);
 
 module.exports = clientesRouter;
