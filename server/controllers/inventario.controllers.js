@@ -137,7 +137,8 @@ const pergaminoRango = async (req, res, next) => {
 const cantidadDisponible = async (req, res, next) => {
   try {
     const cantidad = await pool.query(
-      `SELECT SUM(stock.cantidad) AS cantidad FROM stock`
+      `SELECT ROUND(SUM(stock.cantidad), 2) AS cantidad FROM stock
+`
     );
     res.json(cantidad.rows[0]);
   } catch (error) {
@@ -148,7 +149,7 @@ const cantidadDisponible = async (req, res, next) => {
   }
 };
 
-//----------------------------- EXPORTS -------------------------------
+//----------------------------- EXPORTS ------------------------------- ROUND(rendimiento, 4)
 
 module.exports = {
   ingresarPergamino,

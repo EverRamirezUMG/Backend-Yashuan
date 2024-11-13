@@ -56,6 +56,20 @@ const getAllcompras = async (req, res, next) => {
   }
 };
 
+//-----------  MOSTRAR FALTA DE PAGO DE PRODUCTORES  ----------------
+
+const faltaPago = async (req, res, next) => {
+  try {
+    const allcompras = await pool.query(
+      `select * from vistacomprobante  where pago  < total`
+    );
+
+    res.json(allcompras.rows);
+  } catch (error) {
+    next(error);
+  }
+};
+
 //------------------------ RESUMEN SEGUN ID COMPRA ------------------------
 
 const resumenAcopioid = async (req, res, next) => {
@@ -613,4 +627,5 @@ module.exports = {
   totalCompra,
   resumenAcopioid,
   totalCompraId,
+  faltaPago,
 };

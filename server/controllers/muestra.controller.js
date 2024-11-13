@@ -148,7 +148,8 @@ from muestra where fecha between $1 and $2
 const precio = async (req, res, next) => {
   try {
     const precio = await pool.query(
-      `select precio from precio_pergamino order by idpreciopergamino desc limit 1
+      `select precio from precio_pergamino where idpreciopergamino = 1 order by idpreciopergamino desc limit 1
+
 
 `
     );
@@ -157,26 +158,6 @@ const precio = async (req, res, next) => {
     next(error);
   }
 };
-
-//------------------------------------ ACTUALIZAR MUESTRAS --------------------------------------
-
-// const actualizarMuestra = async (req, res, next) => {
-//   const { id } = req.params;
-//   const { fecha, hora, fk_productor, fk_usuario } = req.body;
-//   try {
-//     const result = await pool.query(
-//       "UPDATE beneficio.muestra SET fecha = $1, hora = $2, fk_productor = $3, fk_usuario = $4 WHERE idmuestra = $5 RETURNING *",
-//       [fecha, hora, fk_productor, fk_usuario, id]
-//     );
-//     if (result.rows.length === 0)
-//       return res.status(404).json({
-//         message: "Muestra no encontrada",
-//       });
-//     res.json(result.rows[0]);
-//   } catch (error) {
-//     next(error);
-//   }
-// };
 
 module.exports = {
   muestras,

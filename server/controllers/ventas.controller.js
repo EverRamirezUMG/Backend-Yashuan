@@ -41,12 +41,13 @@ const totales = async (req, res, next) => {
   try {
     const venta = await pool.query(
       `select 
-sum(pesoneto) as peso_total,
-(select sum(pesoneto) as peso from vistaventa where id_proceso = 1 ) as peso_lavado,
-(select sum(pesoneto) as peso from vistaventa where id_proceso = 2 ) as peso_honey,
-(select sum(pesoneto) as peso from vistaventa where id_proceso = 3 ) as peso_natural,
-(select sum(pesoneto) as peso from vistaventa where id_proceso = 4 ) as peso_subproducto
+ROUND(sum(pesoneto), 2) as peso_total,
+(select ROUND(sum(pesoneto), 2) as peso from vistaventa where id_proceso = 1 ) as peso_lavado,
+(select ROUND(sum(pesoneto), 2) as peso from vistaventa where id_proceso = 2 ) as peso_honey,
+(select ROUND(sum(pesoneto), 2) as peso from vistaventa where id_proceso = 3 ) as peso_natural,
+(select ROUND(sum(pesoneto), 2) as peso from vistaventa where id_proceso = 4 ) as peso_subproducto
 from vistaventa
+
 `
     );
     res.json(venta.rows[0]);
@@ -73,6 +74,20 @@ where fecha between $1 and $2`,
     res.json(venta.rows[0]);
   } catch (error) {
     res.status(500).json({ message: error.message });
+  }
+};
+
+//------------------------------------- PRECIO PERGAMINO  --------------------------------------
+const preciopergamino = async (req, res, next) => {
+  try {
+    const precio = await pool.query(
+      `select precio from precio_pergamino where idpreciopergamino = $1 order by idpreciopergamino desc limit 1
+`,
+      [req.params.id]
+    );
+    res.json(precio.rows[0]);
+  } catch (error) {
+    next(error);
   }
 };
 
@@ -137,4 +152,5 @@ module.exports = {
   rangoTotales,
   ingresarVenta,
   pagoVenta,
+  preciopergamino,
 };
