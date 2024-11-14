@@ -148,7 +148,7 @@ from muestra where fecha between $1 and $2
 const precio = async (req, res, next) => {
   try {
     const precio = await pool.query(
-      `select precio from precio_pergamino where idpreciopergamino = 1 order by idpreciopergamino desc limit 1
+      `select precio from precio_pergamino where fk_proceso = 1 order by idpreciopergamino desc limit 1
 
 
 `
